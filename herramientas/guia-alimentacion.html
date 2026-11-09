@@ -1,9 +1,213 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0c0f14"><meta name="description" content="Vista previa de la guía de alimentación ROAFIT. Próximamente."><title>Guía de alimentación | ROAFIT</title><link rel="stylesheet" href="../assets/css/site.css"><script src="../assets/js/site.js" defer></script></head>
-<body><a class="skip-link" href="#contenido">Saltar al contenido</a><header class="site-header"><div class="header-inner"><a class="brand" href="../index.html" aria-label="ROAFIT, ir al inicio"><span class="brand-mark" aria-hidden="true">RF</span><span class="brand-name">ROAFIT</span></a><button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú de navegación">Menú</button><nav class="site-nav" id="site-nav" data-site-nav aria-label="Navegación principal"><ul><li><a href="../index.html">Inicio</a></li><li><a href="../blog/index.html">Blog</a></li><li><a href="../herramientas.html" aria-current="page">Herramientas</a></li><li><a href="../tienda.html">Tienda</a></li><li><a href="../contacto.html">Contacto</a></li></ul></nav></div></header>
-<main id="contenido"><section class="page-hero"><div class="container"><p class="eyebrow">Herramientas ROAFIT · Alimentación</p><span class="provisional">Próximamente</span><h1 class="tool-title">Guía de alimentación</h1><p class="lead">Una futura guía informativa de carácter general, todavía pendiente de desarrollo y revisión. No es una pauta nutricional personalizada.</p></div></section><section class="section"><div class="container tool-layout"><div class="tool-preview guide-preview"><div class="preview-heading"><div><p class="eyebrow">Vista previa ilustrativa</p><h2>Una estructura sencilla</h2></div><span class="preview-tag">Contenido de muestra</span></div><div class="guide-steps"><article><span class="guide-index">01</span><div><h3>Observa tu rutina</h3><p>Espacio futuro para reflexionar sobre horarios y preferencias.</p></div></article><article><span class="guide-index">02</span><div><h3>Explora opciones</h3><p>Ideas educativas generales, sujetas a revisión antes de publicarse.</p></div></article><article><span class="guide-index">03</span><div><h3>Busca apoyo cualificado</h3><p>La guía no sustituirá la atención individual de un profesional sanitario.</p></div></article></div><div class="preview-output"><p class="card-number">MATERIAL ILUSTRATIVO</p><p class="muted">No contiene recomendaciones dietéticas, menús, cantidades ni objetivos nutricionales.</p></div><button class="button" type="button" disabled aria-disabled="true">Guía próximamente</button></div><aside class="tool-aside"><h2>Sobre esta vista</h2><p>El contenido definitivo todavía no está redactado. La estructura solo anticipa el formato posible de la página.</p><p class="notice">Próximamente · Contenido pendiente de revisión</p><a href="../herramientas.html">← Volver al catálogo</a></aside></div></section></main>
-<footer class="site-footer"><div class="container footer-grid"><div><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">RF</span><span class="brand-name">ROAFIT</span></a><p class="muted">Del Deseo a la Acción · <a href="mailto:soyroafit@gmail.com">soyroafit@gmail.com</a></p></div><div><p class="eyebrow">Explora</p><ul class="footer-links"><li><a href="../index.html">Inicio</a></li><li><a href="../blog/index.html">Blog</a></li><li><a href="../herramientas.html">Herramientas</a></li><li><a href="../tienda.html">Tienda</a></li><li><a href="../contacto.html">Contacto</a></li><li><a href="../privacidad.html">Privacidad</a></li><li><a href="../aviso-legal.html">Aviso legal</a></li></ul></div><div class="footer-bottom">© ROAFIT · @soyroafit</div></div></footer></body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>ROAFIT - Tracker de Objetivos Nutricionales</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Arial',sans-serif;background:#1A1A1A;padding:20px;min-height:100vh;overflow-x:hidden;}
+        .container{max-width:1000px;margin:0 auto;background:#2a2a2a;border-radius:20px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid #3a3a3a;overflow-x:hidden;}
+        .header{text-align:center;margin-bottom:30px;border-bottom:3px solid #10b981;padding-bottom:20px;}
+        .logo-image{width:300px;max-width:90%;height:auto;margin-bottom:20px;}
+        .header h1{color:#E6E6E6;font-size:2em;margin-bottom:10px;}
+        .header p{color:#b8b8b8;font-size:1.1em;}
+        .save-indicator{position:fixed;top:20px;right:20px;background:#10b981;color:white;padding:10px 20px;border-radius:10px;font-weight:bold;opacity:0;transition:opacity 0.3s;z-index:1000;}
+        .save-indicator.show{opacity:1;}
+        .highlight-green{color:#10b981;}
+        .disclaimer{background:#3a2020;border-left:4px solid #e63946;padding:20px;margin-bottom:30px;border-radius:8px;}
+        .disclaimer h3{color:#e63946;margin-bottom:10px;}
+        .disclaimer p{color:#d4d4d4;line-height:1.6;}
+        .info-box{background:#1A1A1A;border-left:4px solid #10b981;padding:20px;margin-bottom:30px;border-radius:8px;}
+        .info-box h3{color:#10b981;margin-bottom:15px;}
+        .info-box p{color:#b8b8b8;line-height:1.6;margin-bottom:10px;}
+        .info-box ul{margin-left:20px;color:#b8b8b8;line-height:1.8;}
+        .week-selector{display:flex;gap:10px;justify-content:center;margin-bottom:30px;flex-wrap:wrap;}
+        .week-btn{padding:12px 24px;border:2px solid #3a3a3a;background:#1A1A1A;color:#b8b8b8;border-radius:10px;font-weight:bold;cursor:pointer;transition:all 0.3s;}
+        .week-btn.active{background:#10b981;border-color:#10b981;color:#1A1A1A;}
+        .week-btn:hover{border-color:#10b981;}
+        .objectives-section{background:#1A1A1A;border:2px solid #3a3a3a;border-radius:15px;padding:25px;margin-bottom:30px;}
+        .objectives-title{color:#10b981;font-size:1.5em;font-weight:bold;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #3a3a3a;}
+        .objective-card{background:#2a2a2a;border:2px solid #3a3a3a;border-radius:12px;padding:20px;margin-bottom:20px;}
+        .objective-header{display:flex;align-items:center;gap:15px;margin-bottom:15px;flex-wrap:wrap;}
+        .objective-number{background:#10b981;color:#1A1A1A;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:1.2em;flex-shrink:0;}
+        .objective-input{flex:1;min-width:200px;padding:12px;border:2px solid #3a3a3a;border-radius:8px;background:#1A1A1A;color:#E6E6E6;font-size:1em;}
+        .objective-input:focus{outline:none;border-color:#10b981;}
 
+        /* FIXED DAYS GRID - no overflow on mobile */
+        .days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:15px;}
+        .day-box{border:2px solid #3a3a3a;border-radius:8px;padding:12px 4px;text-align:center;background:#1A1A1A;cursor:pointer;transition:all 0.3s;}
+        .day-box:hover{transform:translateY(-2px);}
+        .day-box.checked{background:#10b981;border-color:#10b981;color:#1A1A1A;}
+        .day-name{font-size:0.8em;font-weight:bold;margin-bottom:6px;color:#b8b8b8;}
+        .day-box.checked .day-name{color:#1A1A1A;}
+        .checkbox{width:26px;height:26px;border:2px solid #3a3a3a;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:1.1em;}
+        .day-box.checked .checkbox{border-color:#1A1A1A;color:#1A1A1A;}
 
+        .progress-section{background:#2a2a2a;border:2px solid #10b981;border-radius:12px;padding:20px;margin-top:15px;}
+        .progress-title{color:#10b981;font-weight:bold;margin-bottom:10px;}
+        .progress-bar-container{background:#1A1A1A;border-radius:10px;height:30px;overflow:hidden;margin-bottom:10px;}
+        .progress-bar{background:linear-gradient(90deg,#10b981,#34d399);height:100%;transition:width 0.5s;display:flex;align-items:center;justify-content:center;color:#1A1A1A;font-weight:bold;}
+        .progress-text{color:#b8b8b8;font-size:0.9em;text-align:center;}
+        .recommendations-section{background:#1A1A1A;border:2px solid #F2CB05;border-radius:12px;padding:25px;margin-bottom:30px;}
+        .recommendations-title{color:#F2CB05;font-size:1.3em;font-weight:bold;margin-bottom:20px;}
+        .recommendation-item{background:#2a2a2a;border-left:4px solid #10b981;padding:15px;margin-bottom:15px;border-radius:8px;}
+        .recommendation-item h4{color:#10b981;margin-bottom:10px;}
+        .recommendation-item p{color:#b8b8b8;line-height:1.6;margin-bottom:8px;}
+        .recommendation-item ul{margin-left:20px;color:#b8b8b8;line-height:1.6;}
+        .notes-section{margin-top:30px;padding:20px;background:#1A1A1A;border-radius:10px;border:2px solid #3a3a3a;}
+        .notes-section h3{color:#10b981;margin-bottom:15px;}
+        .notes-input{width:100%;min-height:100px;padding:15px;border:2px solid #3a3a3a;border-radius:8px;font-family:'Arial',sans-serif;font-size:1em;resize:vertical;background:#1A1A1A;color:#E6E6E6;}
+        .notes-input:focus{outline:none;border-color:#10b981;}
+        .action-buttons{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:30px;}
+        .btn{padding:15px 30px;border:none;border-radius:10px;font-size:1em;font-weight:bold;cursor:pointer;transition:all 0.3s;}
+        .btn-primary{background:#10b981;color:#1A1A1A;}
+        .btn-primary:hover{transform:scale(1.05);}
+        .btn-secondary{background:#3a3a3a;color:#E6E6E6;}
+        .btn-danger{background:#e63946;color:white;}
+        .footer{text-align:center;margin-top:40px;padding-top:20px;border-top:2px solid #3a3a3a;color:#999999;}
+        .footer a{color:#10b981;text-decoration:none;}
 
+        /* MOBILE FIXES */
+        @media(max-width:768px){
+            .container{padding:25px 15px;}
+            .header h1{font-size:1.5em;}
+            .days-grid{grid-template-columns:repeat(4,1fr);gap:6px;}
+        }
+        @media(max-width:480px){
+            body{padding:8px;}
+            .container{padding:14px 10px;border-radius:12px;}
+            .logo-image{width:200px;}
+            .header h1{font-size:1.2em;}
+            .days-grid{grid-template-columns:repeat(4,1fr);gap:5px;}
+            .day-box{padding:9px 3px;}
+            .day-name{font-size:0.7em;}
+            .checkbox{width:22px;height:22px;font-size:0.9em;}
+            .week-btn{padding:10px 14px;font-size:0.85em;}
+            .objective-input{min-width:140px;}
+        }
+    </style>
+</head>
+<body>
+    <div class="save-indicator" id="saveIndicator">&#10003; Guardado automaticamente</div>
+    <div class="container">
+        <div class="header">
+            <img src="logo-roafit.png" alt="ROAFIT" class="logo-image">
+            <h1>TRACKER DE OBJETIVOS NUTRICIONALES</h1>
+            <p>Crea <span class="highlight-green">habitos saludables</span> paso a paso</p>
+        </div>
+        <div class="disclaimer">
+            <h3>Importante - Lee antes de usar</h3>
+            <p>Esta herramienta es solo una guia basica para crear habitos alimentarios saludables. No reemplaza el consejo de un nutricionista o dietista profesional. Si tienes condiciones medicas, alergias o necesidades especificas, consulta con un especialista.</p>
+        </div>
+        <div class="info-box">
+            <h3>Como funciona este tracker?</h3>
+            <p>Establece objetivos especificos y medibles, y marcalos cada dia que los cumplas.</p>
+            <p><strong>Ejemplos de buenos objetivos:</strong></p>
+            <ul>
+                <li>Beber 2 litros de agua al dia</li>
+                <li>Comer 3 porciones de verduras diarias</li>
+                <li>Cocinar en casa 5 dias a la semana</li>
+                <li>Comer legumbres 3 veces por semana</li>
+                <li>Desayunar todos los dias</li>
+            </ul>
+            <p style="margin-top:15px;"><strong class="highlight-green">Consejo:</strong> Empieza con 3 objetivos simples. Cuando los domines, puedes anadir mas.</p>
+        </div>
+        <div class="week-selector">
+            <button class="week-btn active" onclick="changeWeek(1)">Semana 1</button>
+            <button class="week-btn" onclick="changeWeek(2)">Semana 2</button>
+            <button class="week-btn" onclick="changeWeek(3)">Semana 3</button>
+            <button class="week-btn" onclick="changeWeek(4)">Semana 4</button>
+            <button class="week-btn" onclick="changeWeek(5)">Semana 5+</button>
+        </div>
+        <div class="objectives-section">
+            <div class="objectives-title">Mis Objetivos Nutricionales</div>
+            <div id="objectivesContent"></div>
+        </div>
+        <div class="recommendations-section">
+            <div class="recommendations-title">Tecnicas adicionales que puedes aplicar</div>
+            <div class="recommendation-item">
+                <h4>1. Planificacion Semanal de Comidas</h4>
+                <ul>
+                    <li>Dedica 30 minutos cada domingo a planificar tus comidas</li>
+                    <li>Crea una lista de compras basada en tu planificacion</li>
+                    <li>Prioriza cocinar en casa cuando sea posible</li>
+                </ul>
+            </div>
+            <div class="recommendation-item">
+                <h4>2. Metodo del Plato Saludable (Harvard)</h4>
+                <ul>
+                    <li><strong>1/2 del plato:</strong> Verduras y frutas variadas</li>
+                    <li><strong>1/4 del plato:</strong> Proteina saludable</li>
+                    <li><strong>1/4 del plato:</strong> Carbohidratos integrales</li>
+                    <li><strong>Anade:</strong> Grasas saludables y agua como bebida principal</li>
+                </ul>
+            </div>
+            <div class="recommendation-item">
+                <h4>3. Conciencia Alimentaria</h4>
+                <ul>
+                    <li>Considera apps como Cronometer o MyFitnessPal para registrar lo que comes</li>
+                    <li>Lleva un diario de como te sientes despues de comer</li>
+                </ul>
+                <p style="margin-top:10px;"><strong class="highlight-green">Importante:</strong> El registro no debe convertirse en obsesion. Es una herramienta educativa temporal.</p>
+            </div>
+        </div>
+        <div class="notes-section">
+            <h3>Reflexiones de la Semana</h3>
+            <textarea class="notes-input" id="weekNotes" placeholder="Como te fue esta semana? Que te facilito cumplir tus objetivos? Necesitas ajustar alguno?"></textarea>
+        </div>
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+            <button class="btn btn-secondary" onclick="exportData()">Exportar Datos</button>
+            <button class="btn btn-danger" onclick="resetTracker()">Reiniciar Todo</button>
+        </div>
+        <div id="coachButtonContainer" style="text-align:center;margin-top:40px;padding:30px;background:linear-gradient(135deg,#F2CB05,#ffd700);border-radius:20px;"><h3 style="color:#1a1a1a;margin-bottom:15px;">¿Necesitas ayuda con tus objetivos nutricionales?</h3><p style="color:#1a1a1a;margin-bottom:20px;">Envíame tu registro y te ayudo a definir objetivos realistas.</p></div>
+        <div class="footer">
+            <p><strong class="highlight-green">Del Deseo a la Accion</strong></p>
+            <p>Pequenos habitos, grandes cambios. La consistencia vence a la perfeccion.</p>
+            <p style="margin-top:15px;"><a href="../herramientas.html" style="color:#F2CB05;text-decoration:none;">&#8592; Volver a las herramientas</a></p>
+        </div>
+    </div>
+    <script>
+        var currentWeek=1,trackerData={};
+        var days=['LUN','MAR','MIE','JUE','VIE','SAB','DOM'];
+        var defaultObjectives=['Ejemplo: Beber 2 litros de agua al dia','Ejemplo: Comer 3 porciones de verduras','Ejemplo: Cocinar en casa 5 dias','Ejemplo: Comer legumbres 3 veces/semana','Ejemplo: Desayunar todos los dias'];
+        function initWeek(){if(!trackerData[currentWeek]){trackerData[currentWeek]={objectives:[],notes:''};for(var i=0;i<5;i++)trackerData[currentWeek].objectives.push({text:'',days:[false,false,false,false,false,false,false]});}}
+        function renderObjectives(){
+            initWeek();
+            var c=document.getElementById('objectivesContent'),html='';
+            for(var i=0;i<5;i++){
+                var obj=trackerData[currentWeek].objectives[i];
+                html+='<div class="objective-card"><div class="objective-header"><div class="objective-number">'+(i+1)+'</div>';
+                html+='<input type="text" class="objective-input" placeholder="'+defaultObjectives[i]+'" value="'+(obj.text||'')+'" onchange="updateText('+i+',this.value)"></div>';
+                html+='<div class="days-grid">';
+                for(var d=0;d<7;d++){
+                    html+='<div class="day-box '+(obj.days[d]?'checked':'')+'" onclick="toggleDay('+i+','+d+')">';
+                    html+='<div class="day-name">'+days[d]+'</div><div class="checkbox">'+(obj.days[d]?'&#10003;':'')+'</div></div>';
+                }
+                html+='</div>';
+                var done=obj.days.filter(function(d){return d;}).length;
+                var pct=Math.round(done/7*100);
+                html+='<div class="progress-section"><div class="progress-title">Progreso semanal</div>';
+                html+='<div class="progress-bar-container"><div class="progress-bar" style="width:'+pct+'%">'+(pct>15?pct+'%':'')+'</div></div>';
+                html+='<div class="progress-text">'+done+' de 7 dias cumplidos</div></div></div>';
+            }
+            c.innerHTML=html;
+            document.getElementById('weekNotes').value=trackerData[currentWeek].notes||'';
+        }
+        function updateText(i,v){trackerData[currentWeek].objectives[i].text=v;saveData();}
+        function toggleDay(o,d){trackerData[currentWeek].objectives[o].days[d]=!trackerData[currentWeek].objectives[o].days[d];renderObjectives();saveData();}
+        function changeWeek(w){currentWeek=w;document.querySelectorAll('.week-btn').forEach(function(b,i){b.classList.toggle('active',i===w-1);});renderObjectives();}
+        function saveData(){try{var n=document.getElementById('weekNotes');if(n)trackerData[currentWeek].notes=n.value;localStorage.setItem('nutritionTracker',JSON.stringify(trackerData));showSave();}catch(e){}}
+        function loadData(){try{var s=localStorage.getItem('nutritionTracker');if(s)trackerData=JSON.parse(s);}catch(e){}}
+        function showSave(){var el=document.getElementById('saveIndicator');el.classList.add('show');setTimeout(function(){el.classList.remove('show');},2000);}
+        function exportData(){var b=new Blob([JSON.stringify(trackerData,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='nutrition-tracker-'+new Date().toISOString().slice(0,10)+'.json';a.click();}
+        function resetTracker(){if(confirm('Borrar todos los datos? Esta accion no se puede deshacer.')){localStorage.removeItem('nutritionTracker');location.reload();}}
+        document.addEventListener('DOMContentLoaded',function(){loadData();renderObjectives();document.getElementById('weekNotes').addEventListener('input',saveData);});
+    </script>
+
+    <script src="roafit-coach-sender.js"></script>
+    <script>window.addEventListener('load',function(){if(window.RoafitCoachSender){RoafitCoachSender.init('coachButtonContainer');}});</script>
+</body>
+</html>

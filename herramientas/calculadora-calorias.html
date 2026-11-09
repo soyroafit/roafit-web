@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>ROAFIT - Calculadora de Calorías</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1A1A1A;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid #3a3a3a;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo-image {
+            width: 300px;
+            max-width: 90%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #E6E6E6;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #b8b8b8;
+            font-size: 1.1em;
+        }
+        
+        .highlight {
+            color: #F2CB05;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #E6E6E6;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #3a3a3a;
+            border-radius: 10px;
+            background: #1A1A1A;
+            color: #E6E6E6;
+            font-size: 1em;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #F2CB05;
+        }
+        
+        .form-group select {
+            cursor: pointer;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+        
+        .radio-option label {
+            display: block;
+            padding: 15px;
+            border: 2px solid #3a3a3a;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #1A1A1A;
+            color: #b8b8b8;
+        }
+        
+        .radio-option input[type="radio"]:checked + label {
+            border-color: #F2CB05;
+            background: #F2CB05;
+            color: #1A1A1A;
+            font-weight: bold;
+        }
+        
+        .radio-option label:hover {
+            border-color: #F2CB05;
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 18px;
+            background: #F2CB05;
+            color: #1A1A1A;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .calculate-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(242, 203, 5, 0.4);
+        }
+        
+        .results {
+            margin-top: 40px;
+            display: none;
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .results-title {
+            color: #F2CB05;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .results-table th,
+        .results-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #3a3a3a;
+        }
+        
+        .results-table th {
+            background: #1A1A1A;
+            color: #F2CB05;
+            font-weight: bold;
+        }
+        
+        .results-table td {
+            color: #E6E6E6;
+        }
+        
+        .results-table tr:hover {
+            background: #1A1A1A;
+        }
+        
+        .info-box {
+            background: #1A1A1A;
+            border-left: 4px solid #F2CB05;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+        
+        .info-box h3 {
+            color: #F2CB05;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            color: #b8b8b8;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #3a3a3a;
+            color: #999999;
+        }
+        
+        .footer a {
+            color: #F2CB05;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+            }
+            
+            .radio-option {
+                min-width: 100%;
+            }
+            
+            .results-table {
+                font-size: 0.9em;
+            }
+            
+            .results-table th,
+            .results-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo-roafit.png" alt="ROAFIT" class="logo-image">
+            <h1>Calculadora de Calorías</h1>
+            <p>Descubre cuántas calorías necesitas según tu <span class="highlight">objetivo</span></p>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-group">
+                <label>Tu sexo</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="hombre" name="sexo" value="hombre" checked>
+                        <label for="hombre">Hombre</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="mujer" name="sexo" value="mujer">
+                        <label for="mujer">Mujer</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="edad">Tu edad (años)</label>
+                <input type="number" id="edad" placeholder="Ejemplo: 35" min="15" max="100">
+            </div>
+            
+            <div class="form-group">
+                <label for="peso">Tu peso (kg)</label>
+                <input type="number" id="peso" placeholder="Ejemplo: 75" min="30" max="300" step="0.1">
+            </div>
+            
+            <div class="form-group">
+                <label for="altura">Tu altura (cm)</label>
+                <input type="number" id="altura" placeholder="Ejemplo: 175" min="120" max="250">
+            </div>
+            
+            <div class="form-group">
+                <label for="actividad">Nivel de actividad física</label>
+                <select id="actividad">
+                    <option value="">Selecciona tu nivel de actividad</option>
+                    <option value="1.2">Sedentario (poco o ningún ejercicio)</option>
+                    <option value="1.375">Actividad ligera (ejercicio 1-3 días/semana)</option>
+                    <option value="1.55">Actividad moderada (ejercicio 3-5 días/semana)</option>
+                    <option value="1.725">Actividad intensa (ejercicio 6-7 días/semana)</option>
+                    <option value="1.9">Actividad muy intensa (ejercicio diario intenso o trabajo físico)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="objetivo">¿Cuál es tu objetivo?</label>
+                <select id="objetivo">
+                    <option value="">Selecciona tu objetivo</option>
+                    <option value="musculo">Aumentar masa muscular</option>
+                    <option value="grasa">Bajar grasa corporal</option>
+                    <option value="mantener">Mantener el peso actual</option>
+                </select>
+            </div>
+            
+            <button class="calculate-btn" onclick="calcular()">Calcular mis Calorías</button>
+        </div>
+        
+        <div class="results" id="results">
+            <h2 class="results-title">📊 Tus Resultados</h2>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Nivel</th>
+                        <th>Calorías/día</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                </tbody>
+            </table>
+            
+            <div class="info-box">
+                <h3>💡 ¿Qué significan estos resultados?</h3>
+                <p id="infoText"></p>
+            </div>
+        </div>
+        
+        <!-- Contenedor para botón de Coach - SIEMPRE VISIBLE -->
+        <div id="coachButtonContainer" style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #F2CB05 0%, #ffd700 100%); border-radius: 20px;">
+            <h3 style="color: #1a1a1a; margin-bottom: 15px;">¿Quieres un plan nutricional personalizado?</h3>
+            <p style="color: #1a1a1a; margin-bottom: 20px;">
+                Puedo ayudarte a crear un plan de alimentación adaptado a tus objetivos y calorías.
+            </p>
+            <!-- El botón se insertará aquí automáticamente -->
+        </div>
+        
+        <div class="footer">
+            <p><strong class="highlight">Del Deseo a la Acción</strong></p>
+            <p>Esta calculadora usa la fórmula de Mifflin-St Jeor, la más actualizada y precisa</p>
+            <p style="margin-top: 15px;">
+                <a href="../herramientas.html">← Volver a Herramientas</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        function calcular() {
+            var sexo = document.querySelector('input[name="sexo"]:checked').value;
+            var edad = parseFloat(document.getElementById('edad').value);
+            var peso = parseFloat(document.getElementById('peso').value);
+            var altura = parseFloat(document.getElementById('altura').value);
+            var actividad = parseFloat(document.getElementById('actividad').value);
+            var objetivo = document.getElementById('objetivo').value;
+            
+            if (!edad || !peso || !altura || !actividad || !objetivo) {
+                alert('Por favor, completa todos los campos');
+                return;
+            }
+            
+            var tmb;
+            if (sexo === 'hombre') {
+                tmb = (10 * peso) + (6.25 * altura) - (5 * edad) + 5;
+            } else {
+                tmb = (10 * peso) + (6.25 * altura) - (5 * edad) - 161;
+            }
+            
+            var tdee = tmb * actividad;
+            
+            var calorias = {};
+            var infoTexto = '';
+            
+            if (objetivo === 'musculo') {
+                calorias.conservador = Math.round(tdee + (tdee * 0.10));
+                calorias.moderado = Math.round(tdee + (tdee * 0.15));
+                calorias.agresivo = Math.round(tdee + (tdee * 0.20));
+                calorias.mantenimiento = Math.round(tdee);
+                
+                infoTexto = '<strong>Aumentar masa muscular:</strong> Se recomienda un superávit calórico entre 10-20% sobre tu gasto diario. El objetivo es ganar entre 0.2-0.3 kg por semana. Asegúrate de entrenar fuerza regularmente y consumir suficiente proteína (1.6-2.2g por kg de peso corporal).';
+            } else if (objetivo === 'grasa') {
+                calorias.conservador = Math.round(tdee - (tdee * 0.10));
+                calorias.moderado = Math.round(tdee - (tdee * 0.15));
+                calorias.agresivo = Math.round(tdee - (tdee * 0.25));
+                calorias.mantenimiento = Math.round(tdee);
+                
+                infoTexto = '<strong>Perder grasa corporal:</strong> Se recomienda un déficit calórico entre 10-25% según tu contexto. El objetivo es perder 0.5-1% de tu peso corporal por semana. Mantén el entrenamiento de fuerza para preservar masa muscular y prioriza alimentos nutritivos.';
+            } else {
+                calorias.conservador = Math.round(tdee - (tdee * 0.05));
+                calorias.moderado = Math.round(tdee);
+                calorias.agresivo = Math.round(tdee + (tdee * 0.05));
+                calorias.mantenimiento = Math.round(tdee);
+                
+                infoTexto = '<strong>Mantener peso actual:</strong> Consume aproximadamente tus calorías de mantenimiento. Ajusta según tu peso se mantenga estable durante 2-3 semanas. Enfócate en una alimentación equilibrada y entrenamiento regular.';
+            }
+            
+            var tbody = document.getElementById('resultsBody');
+            tbody.innerHTML = '';
+            
+            var niveles = [
+                { nombre: 'Metabolismo Basal (TMB)', valor: Math.round(tmb) },
+                { nombre: 'Gasto Total Diario (TDEE)', valor: calorias.mantenimiento },
+                { nombre: objetivo === 'grasa' ? 'Déficit Conservador (-10%)' : 'Superávit Conservador (+10%)', valor: calorias.conservador },
+                { nombre: objetivo === 'grasa' ? 'Déficit Moderado (-15%)' : 'Superávit Moderado (+15%)', valor: calorias.moderado }
+            ];
+            
+            if (objetivo !== 'mantener') {
+                niveles.push({
+                    nombre: objetivo === 'grasa' ? 'Déficit Agresivo (-25%)' : 'Superávit Agresivo (+20%)',
+                    valor: calorias.agresivo
+                });
+            }
+            
+            for (var i = 0; i < niveles.length; i++) {
+                var row = tbody.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.textContent = niveles[i].nombre;
+                cell2.textContent = niveles[i].valor + ' kcal';
+            }
+            
+            document.getElementById('infoText').innerHTML = infoTexto;
+            document.getElementById('results').classList.add('show');
+            
+            // Guardar resultados en localStorage para el módulo de coach
+            localStorage.setItem('calorieData', JSON.stringify({
+                sexo: sexo,
+                edad: edad,
+                peso: peso,
+                altura: altura,
+                actividad: actividad,
+                objetivo: objetivo,
+                tmb: Math.round(tmb),
+                tdee: Math.round(tdee),
+                calorias: calorias,
+                fecha: new Date().toLocaleString('es-ES')
+            }));
+            
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Inicializar botón "Enviar a mi coach" cuando la página cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof RoafitCoachSender !== 'undefined') {
+                RoafitCoachSender.init('coachButtonContainer');
+            }
+        });
+    </script>
+    
+    <!-- ROAFIT Coach Sender Module -->
+    <script src="roafit-coach-sender.js"></script>
+</body>
+</html>
