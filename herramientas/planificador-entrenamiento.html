@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.sibforms.com; form-action 'self' https://*.sibforms.com; frame-src 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"><meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -175,6 +175,8 @@
     </div>
 
     <script>
+function escHTML(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
         var currentWeek = 1;
         var workoutData = {};
 
@@ -266,7 +268,7 @@
                     html += '<span class="exercise-label">Ej:</span>';
                     html += '<input type="text" class="exercise-name-input" ';
                     html += 'placeholder="' + dayData.exercises[i] + '" ';
-                    html += 'value="' + (exerciseData.name || '') + '" ';
+                    html += 'value="' + escHTML(exerciseData.name) + '" ';
                     html += 'onchange="updateExerciseName(\'' + dayKey + '\', ' + i + ', this.value)">';
                     html += '</div>';
 
@@ -280,10 +282,10 @@
                         html += '<div class="series-row">';
                         html += '<div class="series-label">Serie ' + (s + 1) + '</div>';
                         html += '<input type="number" class="series-input" placeholder="10-15" ';
-                        html += 'value="' + (seriesData.reps || '') + '" ';
+                        html += 'value="' + escHTML(seriesData.reps) + '" ';
                         html += 'onchange="updateSeries(\'' + dayKey + '\', ' + i + ', ' + s + ', \'reps\', this.value)">';
                         html += '<input type="number" class="series-input" placeholder="20" step="0.5" ';
-                        html += 'value="' + (seriesData.weight || '') + '" ';
+                        html += 'value="' + escHTML(seriesData.weight) + '" ';
                         html += 'onchange="updateSeries(\'' + dayKey + '\', ' + i + ', ' + s + ', \'weight\', this.value)">';
                         if (s === 0) {
                             html += '<div class="series-input" style="border: none; background: #1A1A1A; color: #b8b8b8;">1 min</div>';
@@ -299,7 +301,7 @@
                     html += '<textarea class="exercise-comments-input" ';
                     html += 'placeholder="&#191;Te gener&#243; alguna molestia? &#191;Fue f&#225;cil o dif&#237;cil? &#191;Ajustaste la t&#233;cnica?" ';
                     html += 'onchange="updateExerciseComments(\'' + dayKey + '\', ' + i + ', this.value)">';
-                    html += (exerciseData.comments || '');
+                    html += escHTML(exerciseData.comments);
                     html += '</textarea>';
                     html += '</div>';
                     html += '</div>';

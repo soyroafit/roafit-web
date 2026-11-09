@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.sibforms.com; form-action 'self' https://*.sibforms.com; frame-src 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"><meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>ROAFIT - Tracker de Objetivos Nutricionales</title>
@@ -170,6 +170,8 @@
         </div>
     </div>
     <script>
+function escHTML(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
         var currentWeek=1,trackerData={};
         var days=['LUN','MAR','MIE','JUE','VIE','SAB','DOM'];
         var defaultObjectives=['Ejemplo: Beber 2 litros de agua al dia','Ejemplo: Comer 3 porciones de verduras','Ejemplo: Cocinar en casa 5 dias','Ejemplo: Comer legumbres 3 veces/semana','Ejemplo: Desayunar todos los dias'];
@@ -180,7 +182,7 @@
             for(var i=0;i<5;i++){
                 var obj=trackerData[currentWeek].objectives[i];
                 html+='<div class="objective-card"><div class="objective-header"><div class="objective-number">'+(i+1)+'</div>';
-                html+='<input type="text" class="objective-input" placeholder="'+defaultObjectives[i]+'" value="'+(obj.text||'')+'" onchange="updateText('+i+',this.value)"></div>';
+                html+='<input type="text" class="objective-input" placeholder="'+defaultObjectives[i]+'" value="'+escHTML(obj.text)+'" onchange="updateText('+i+',this.value)"></div>';
                 html+='<div class="days-grid">';
                 for(var d=0;d<7;d++){
                     html+='<div class="day-box '+(obj.days[d]?'checked':'')+'" onclick="toggleDay('+i+','+d+')">';

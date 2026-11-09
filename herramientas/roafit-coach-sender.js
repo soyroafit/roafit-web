@@ -86,7 +86,7 @@
                         </div>
                         
                         <div style="margin-bottom: 12px; font-size: 0.9em; color: #333; text-align:left;">
-                            <label style="display:flex; gap:8px; align-items:flex-start; cursor:pointer;"><input type="checkbox" id="coachConsent" required style="margin-top:3px;"><span>Acepto la <a href="../privacidad.html" target="_blank" style="color:#b38f00;">política de privacidad</a> y doy mi consentimiento explícito para que ROA FIT trate los datos de este tracker (pueden incluir información de salud) para responderme. <span style="color: #e74c3c;">*</span></span></label>
+                            <label style="display:flex; gap:8px; align-items:flex-start; cursor:pointer;"><input type="checkbox" id="coachConsent" required style="margin-top:3px;"><span>Acepto la <a href="../privacidad.html" target="_blank" rel="noopener" style="color:#b38f00;">política de privacidad</a> y doy mi consentimiento explícito para que ROA FIT trate los datos de este tracker (pueden incluir información de salud) para responderme. <span style="color: #e74c3c;">*</span></span></label>
                         </div>
                         <div style="margin-bottom: 25px; font-size: 0.9em; color: #333; text-align:left;">
                             <label style="display:flex; gap:8px; align-items:flex-start; cursor:pointer;"><input type="checkbox" id="coachComunidad" style="margin-top:3px;"><span>Quiero unirme a la Comunidad ROAFIT y recibir emails con contenido y herramientas gratuitas (opcional).</span></label>
