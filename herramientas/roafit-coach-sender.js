@@ -452,33 +452,36 @@
         else if (/calorias/i.test(p)) trackerType = 'calorias';
 
         let resumen = '';
-        try { resumen = exportTrackerDataObject(trackerType).resumen || ''; } catch (err) { resumen = 'No se pudo leer el tracker.'; }
-        let mensaje = '[' + ORIGEN_POR_TIPO[trackerType] + '] Objetivo: ' + objetivo + ' | WhatsApp: ' + whatsapp + '\n\n' + resumen;
-        if (mensaje.length > 1900) mensaje = mensaje.slice(0, 1900) + '…';
+        try { resumen = exportTrackerDataObject(trackerType).resumen || ''; } catch (err) { resumen = ''; }
+        // Brevo admite máx. 500 caracteres en MENSAJE: compactamos el resumen
+        resumen = resumen.replace(/[━═─]+/g, '').replace(/[^\S\n]+/g, ' ').replace(/\n\s*\n+/g, '\n').trim();
+        let mensaje = '[' + ORIGEN_POR_TIPO[trackerType] + '] ' + objetivo + ' | WA: ' + whatsapp + (resumen ? ' | ' + resumen.replace(/\n/g, ' · ') : '');
+        if (mensaje.length > 490) mensaje = mensaje.slice(0, 489) + '…';
 
-        // Envio como formulario HTML normal a un iframe oculto (funciona desde cualquier dominio)
-        let sink = document.getElementById('brevoSink');
-        if (!sink) { sink = document.createElement('iframe'); sink.name = 'brevoSink'; sink.id = 'brevoSink'; sink.style.display = 'none'; document.body.appendChild(sink); }
-        const f = document.createElement('form');
-        f.method = 'POST'; f.action = comunidad ? BREVO_FORMS.comunidad : BREVO_FORMS.base; f.target = 'brevoSink'; f.style.display = 'none';
-        const add = (k, v) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; f.appendChild(i); };
-        add('EMAIL', email); add('NOMBRE', nombre); add('MENSAJE', mensaje); add('email_address_check', ''); add('locale', 'es');
-        document.body.appendChild(f);
-        f.submit();
+        const fd = new FormData();
+        fd.append('EMAIL', email); fd.append('NOMBRE', nombre); fd.append('MENSAJE', mensaje);
+        fd.append('email_address_check', ''); fd.append('locale', 'es');
 
-        setTimeout(function() {
-            f.remove();
+        const ok = function() {
             document.getElementById('coachContactForm').style.display = 'none';
             document.getElementById('coachSuccessMsg').style.display = 'block';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Enviar Datos';
+            submitBtn.disabled = false; submitBtn.textContent = 'Enviar Datos';
             setTimeout(function() {
                 closeCoachModal();
                 document.getElementById('coachContactForm').reset();
                 document.getElementById('coachContactForm').style.display = 'block';
                 document.getElementById('coachSuccessMsg').style.display = 'none';
             }, 4000);
-        }, 1500);
+        };
+        const fail = function() {
+            submitBtn.disabled = false; submitBtn.textContent = 'Enviar Datos';
+            document.getElementById('coachErrorMsg').style.display = 'block';
+            setTimeout(function() { document.getElementById('coachErrorMsg').style.display = 'none'; }, 5000);
+        };
+        fetch(comunidad ? BREVO_FORMS.comunidad : BREVO_FORMS.base, { method: 'POST', body: fd })
+            .then(function(r) { return r.json(); })
+            .then(function(j) { if (j && j.success) ok(); else fail(); })
+            .catch(fail);
     }
 
     // Función de inicialización pública
