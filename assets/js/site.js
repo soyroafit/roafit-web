@@ -7,11 +7,11 @@
   function temaActual() {
     var t = root.getAttribute('data-theme');
     if (t) return t;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'claro' : 'oscuro';
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro';
   }
   function aplicarMeta(t) {
     var m = document.querySelector('meta[name="theme-color"]');
-    if (m) m.setAttribute('content', t === 'claro' ? '#ffffff' : '#121212');
+    if (m) m.setAttribute('content', '#000000');
   }
   function iniciarTema() {
     var botones = document.querySelectorAll('[data-theme-toggle]');
