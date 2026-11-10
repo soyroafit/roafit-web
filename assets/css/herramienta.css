@@ -1,0 +1,113 @@
+/* ROAFIT · Estilo de las 4 herramientas gratuitas.
+   Se carga DESPUÉS del <style> interno de cada herramienta y de site.css.
+   Solo cambia el aspecto: no toca la lógica, los ids ni las clases que usa el JS. */
+
+body { padding: 0 !important; background: var(--bg) !important; color: var(--ink) !important; font-family: var(--font-body) !important; min-height: 0 !important; }
+.tool-page { padding-block: clamp(1.5rem, 5vw, 3.5rem) 1rem; }
+.tool-back { display: inline-flex; min-height: 2.75rem; align-items: center; gap: .4rem; margin: 0 0 1rem; color: var(--ink); font-weight: 700; text-decoration: none; }
+.tool-back:hover { text-decoration: underline; }
+.tool-page .container { width: min(100% - 2.5rem, 52rem) !important; max-width: none !important; padding: 0 !important; margin: 0 auto !important; background: transparent !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+
+/* Cabecera de la herramienta */
+.tool-page .header { margin: 0 0 2rem !important; padding: 0 0 1.5rem !important; border: 0 !important; border-bottom: 1px solid var(--line) !important; text-align: left !important; }
+.tool-page .logo-image { display: none !important; }
+.tool-page .header h1 { margin: 0 0 .5rem !important; color: var(--ink) !important; font-family: var(--font-display) !important; font-size: clamp(1.8rem, 6vw, 3rem) !important; font-weight: 400 !important; line-height: 1.05 !important; letter-spacing: -.02em !important; text-transform: uppercase; }
+.tool-page .header p { margin: 0 !important; color: var(--muted) !important; font-size: 1.1rem !important; }
+.tool-page .highlight, .tool-page .highlight-green { color: var(--ink) !important; background: linear-gradient(transparent 62%, var(--accent) 62% 92%, transparent 92%); }
+
+/* Indicador de guardado */
+.save-indicator { top: auto !important; bottom: 1rem !important; right: 1rem !important; border-radius: 999px !important; padding: .6rem 1.1rem !important; background: var(--accent) !important; color: var(--on-accent) !important; box-shadow: 0 .4rem 1.2rem rgba(0,0,0,.25) !important; font-size: .9rem; }
+
+/* Cajas informativas */
+.instructions, .info-box, .disclaimer, .tips-box, .notes-section, .cardio-section, .recommendations-section, .progress-section, .recommendation-item, .objectives-section { background: var(--surface) !important; border: 1px solid var(--line) !important; border-left-width: 1px !important; border-radius: var(--radius) !important; color: var(--muted) !important; box-shadow: none !important; }
+.instructions, .info-box, .disclaimer, .tips-box, .notes-section, .cardio-section { padding: 1.25rem 1.4rem !important; margin-bottom: 1.5rem !important; }
+.instructions h3, .info-box h3, .disclaimer h3, .tips-box-title, .notes-section h3, .cardio-section h3, .recommendation-item h4, .objectives-title, .progress-title, .recommendations-title, .exercise-comments h4 { color: var(--ink) !important; background: none !important; font-family: var(--font-body) !important; font-weight: 800 !important; }
+.instructions p, .instructions li, .info-box p, .info-box li, .disclaimer p, .tips-box-content, .recommendation-item li, .recommendation-item p, .info-box ul, .instructions ul, .progress-text { color: var(--muted) !important; }
+.instructions strong, .info-box strong, .disclaimer strong, .recommendation-item strong { color: var(--ink) !important; }
+
+/* Títulos de bloque (antes con degradado morado/verde) */
+.strategy-title, .day-title, .objectives-title, .recommendations-title, .progress-title { padding: 0 0 .75rem !important; margin: 0 0 1rem !important; border: 0 !important; border-bottom: 2px solid var(--accent) !important; border-radius: 0 !important; background: none !important; color: var(--ink) !important; font-family: var(--font-display) !important; font-size: clamp(1.15rem, 3.5vw, 1.5rem) !important; font-weight: 400 !important; text-transform: uppercase; box-shadow: none !important; }
+.strategy-section p { color: var(--muted) !important; }
+.week-label { background: var(--surface) !important; color: var(--ink) !important; border-radius: var(--radius-sm) !important; }
+
+/* Selector de semanas */
+.week-selector { gap: .5rem !important; }
+.week-btn { min-height: 2.75rem; border: 1.5px solid var(--line-strong) !important; border-radius: 999px !important; background: transparent !important; color: var(--ink) !important; font-weight: 700 !important; box-shadow: none !important; }
+.week-btn:hover { background: var(--surface) !important; border-color: var(--ink) !important; transform: none !important; }
+.week-btn.active { border-color: var(--accent) !important; background: var(--accent) !important; color: var(--on-accent) !important; }
+
+/* Casillas de días */
+.day-box { min-height: 3.25rem; border: 1.5px solid var(--line-strong) !important; border-radius: var(--radius-sm) !important; background: var(--bg) !important; color: var(--ink) !important; box-shadow: none !important; }
+.day-box:hover { transform: none !important; border-color: var(--ink) !important; box-shadow: none !important; }
+.day-box.checked { border-color: var(--accent) !important; background: var(--accent) !important; color: var(--on-accent) !important; }
+.day-box.checked .day-name, .day-box.checked .checkbox { color: var(--on-accent) !important; }
+.checkbox { border-color: var(--line-strong) !important; background: transparent !important; }
+.day-box.checked .checkbox { border-color: var(--on-accent) !important; background: transparent !important; }
+.day-name { color: inherit !important; }
+
+/* Ejercicios */
+.exercise-card, .objective-card, .series-container { background: var(--surface) !important; border: 1px solid var(--line) !important; border-radius: var(--radius) !important; box-shadow: none !important; color: var(--ink) !important; }
+.exercise-number, .objective-number { background: var(--accent) !important; color: var(--on-accent) !important; }
+.exercise-label, .series-label, .series-header, .series-header * { color: var(--muted) !important; }
+.progress-bar-container { background: var(--surface-2) !important; border-radius: 999px !important; }
+.progress-bar { background: var(--accent) !important; color: var(--on-accent) !important; border-radius: 999px !important; }
+
+/* Campos */
+textarea, .notes-input, .cardio-input, .exercise-comments-input, .exercise-name-input, .series-input, .objective-input,
+.form-group input, .form-group select { background: var(--bg) !important; color: var(--ink) !important; border: 1.5px solid var(--line-strong) !important; border-radius: var(--radius-sm) !important; font-family: var(--font-body) !important; }
+textarea:focus, input:focus, select:focus { outline: 3px solid var(--focus) !important; outline-offset: 2px; border-color: transparent !important; }
+::placeholder { color: var(--muted) !important; opacity: .85; }
+.form-group label { color: var(--ink) !important; }
+.radio-option label { border: 1.5px solid var(--line-strong) !important; background: var(--bg) !important; color: var(--ink) !important; border-radius: var(--radius-sm) !important; }
+.radio-option input[type="radio"]:checked + label { border-color: var(--accent) !important; background: var(--accent) !important; color: var(--on-accent) !important; }
+.radio-option label:hover { border-color: var(--ink) !important; }
+.radio-option input[type="radio"]:focus-visible + label { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* Botones */
+.btn, .calculate-btn { min-height: 3rem; border: 2px solid var(--accent) !important; border-radius: 999px !important; background: var(--accent) !important; color: var(--on-accent) !important; font-weight: 800 !important; box-shadow: none !important; transform: none !important; }
+.btn:hover, .calculate-btn:hover { background: var(--accent-hover) !important; border-color: var(--accent-hover) !important; transform: none !important; box-shadow: none !important; }
+.btn-secondary { border-color: var(--line-strong) !important; background: transparent !important; color: var(--ink) !important; }
+.btn-secondary:hover { border-color: var(--ink) !important; background: var(--surface) !important; }
+.btn-danger { border-color: var(--line-strong) !important; background: transparent !important; color: var(--ink) !important; }
+.btn-danger:hover { border-color: #d64545 !important; background: transparent !important; color: var(--ink) !important; }
+.calculate-btn { width: 100%; }
+
+/* Resultados de la calculadora */
+.results-title { color: var(--ink) !important; font-family: var(--font-display) !important; font-weight: 400 !important; text-transform: uppercase; }
+.results-table th { background: var(--surface-2) !important; color: var(--ink) !important; }
+.results-table td { color: var(--ink) !important; border-color: var(--line) !important; }
+.results-table th { border-color: var(--line) !important; }
+.results-table tr:hover { background: var(--surface) !important; }
+
+/* Bloque "Enviar a mi coach" (sus estilos en línea se sobrescriben aquí) */
+#coachButtonContainer { margin-top: 2.5rem !important; padding: clamp(1.25rem, 4vw, 2rem) !important; border: 1px solid var(--line) !important; border-radius: calc(var(--radius) * 1.3) !important; background: var(--surface) !important; text-align: left !important; }
+#coachButtonContainer h3, #coachButtonContainer p { color: var(--ink) !important; }
+#coachButtonContainer p { color: var(--muted) !important; }
+#sendToCoachBtn { max-width: none !important; width: auto !important; min-height: 3rem; margin: .5rem 0 0 !important; padding: .75rem 1.8rem !important; border: 2px solid var(--accent) !important; border-radius: 999px !important; background: var(--accent) !important; color: var(--on-accent) !important; font-size: 1rem !important; font-weight: 800 !important; box-shadow: none !important; }
+#sendToCoachBtn:hover { background: var(--accent-hover) !important; transform: none !important; box-shadow: none !important; }
+
+/* Ventana del coach (modal) */
+#coachModal { background: var(--shade) !important; }
+#coachModal > div { margin: clamp(1rem, 6vh, 3rem) auto !important; padding: clamp(1.25rem, 5vw, 2.25rem) !important; border: 1px solid var(--line) !important; border-radius: calc(var(--radius) * 1.3) !important; background: var(--bg) !important; color: var(--ink) !important; }
+#coachModal h2, #coachModal label, #coachModal span:not(#closeModal), #coachModal h3 { color: var(--ink) !important; }
+#coachModal p, #coachModal small { color: var(--muted) !important; }
+#coachModal a { color: var(--ink) !important; }
+#coachModal input[type="text"], #coachModal input[type="email"], #coachModal input[type="tel"], #coachModal textarea { border: 1.5px solid var(--line-strong) !important; border-radius: var(--radius-sm) !important; background: var(--bg-2) !important; color: var(--ink) !important; }
+#coachModal input[type="checkbox"] { accent-color: var(--accent); width: 1.2rem; height: 1.2rem; }
+#closeModal { display: grid; width: 2.75rem; height: 2.75rem; place-items: center; top: .5rem !important; right: .5rem !important; border-radius: 50%; color: var(--ink) !important; }
+#sendCoachBtn { width: 100%; border: 2px solid var(--accent) !important; border-radius: 999px !important; background: var(--accent) !important; color: var(--on-accent) !important; cursor: pointer; }
+#coachSuccessMsg { background: var(--accent) !important; color: var(--on-accent) !important; }
+#coachSuccessMsg h3, #coachSuccessMsg p { color: var(--on-accent) !important; }
+#coachErrorMsg { background: #b3261e !important; color: #fff !important; }
+#coachErrorMsg h3, #coachErrorMsg p { color: #fff !important; }
+
+/* Pie de la herramienta */
+.tool-page .footer { margin-top: 2rem !important; padding-top: 1.25rem !important; border-top: 1px solid var(--line) !important; color: var(--muted) !important; text-align: left !important; }
+.tool-page .footer a { color: var(--ink) !important; }
+.tool-page .footer strong { color: var(--ink) !important; }
+
+/* Impresión: hoja limpia en blanco y negro */
+@media print {
+  :root, :root[data-theme] { --bg: #fff; --ink: #000; --muted: #333; --surface: #fff; --line: #bbb; }
+  .tool-back, .tool-page ~ .site-footer, #coachButtonContainer { display: none !important; }
+}

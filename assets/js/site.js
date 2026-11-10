@@ -1,95 +1,92 @@
-(() => {
-  const siteScriptUrl = document.currentScript?.src;
-  if (siteScriptUrl) {
-    const logoUrl = new URL('../img/roafit-logo.png', siteScriptUrl).href;
-    document.querySelectorAll('.brand, .hero-brandline').forEach((slot) => {
-      const logo = document.createElement('img');
-      logo.className = 'brand-image';
-      logo.alt = '';
-      logo.setAttribute('aria-hidden', 'true');
-      logo.addEventListener('load', () => slot.classList.add('has-brand-image'), { once: true });
-      logo.addEventListener('error', () => logo.remove(), { once: true });
-      logo.src = logoUrl;
-      slot.prepend(logo);
-    });
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var KEY = 'roafit-tema';
+
+  /* ---- Tema claro/oscuro (solo preferencia local, sin cookies) ---- */
+  function temaActual() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'claro' : 'oscuro';
   }
-
-  const toggle = document.querySelector('[data-nav-toggle]');
-  const nav = document.querySelector('[data-site-nav]');
-  const header = document.querySelector('.site-header');
-
-  if (toggle && nav) {
-    const closeButton = document.createElement('button');
-    closeButton.type = 'button';
-    closeButton.className = 'nav-close';
-    closeButton.textContent = 'Cerrar';
-    closeButton.setAttribute('aria-label', 'Cerrar menú de navegación');
-    nav.prepend(closeButton);
-
-    const setMenuOpen = (isOpen, { returnFocus = false } = {}) => {
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.setAttribute('aria-label', isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
-      nav.classList.toggle('is-open', isOpen);
-      header?.classList.toggle('menu-open', isOpen);
-      document.body.classList.toggle('menu-open', isOpen);
-      if (returnFocus) toggle.focus();
-    };
-
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      setMenuOpen(!isOpen);
-    });
-
-    closeButton.addEventListener('click', () => setMenuOpen(false, { returnFocus: true }));
-
-    nav.addEventListener('click', (event) => {
-      if (event.target instanceof Element && event.target.closest('a')) {
-        setMenuOpen(false);
-      }
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-        setMenuOpen(false, { returnFocus: true });
-      }
-    });
-
-    document.addEventListener('click', (event) => {
-      if (toggle.getAttribute('aria-expanded') !== 'true') return;
-      if (event.target instanceof Node && !nav.contains(event.target) && !toggle.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    });
-
-    header?.addEventListener('focusout', (event) => {
-      if (event.relatedTarget instanceof Node && !header.contains(event.relatedTarget)) {
-        setMenuOpen(false);
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      if (window.matchMedia('(min-width: 54rem)').matches) setMenuOpen(false);
-    });
+  function aplicarMeta(t) {
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', t === 'claro' ? '#ffffff' : '#121212');
   }
-
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduceMotion && 'IntersectionObserver' in window) {
-    const revealTargets = document.querySelectorAll('main > section, .article, .site-footer .footer-grid');
-    if (revealTargets.length) {
-      const observer = new IntersectionObserver((entries, currentObserver) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            currentObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
-
-      revealTargets.forEach((target) => {
-        target.classList.add('reveal-on-scroll');
-        observer.observe(target);
+  function iniciarTema() {
+    var botones = document.querySelectorAll('[data-theme-toggle]');
+    function etiqueta(t) {
+      botones.forEach(function (b) {
+        b.setAttribute('aria-label', t === 'claro' ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
       });
-      document.documentElement.classList.add('reveal-ready');
     }
+    aplicarMeta(temaActual());
+    etiqueta(temaActual());
+    botones.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var nuevo = temaActual() === 'claro' ? 'oscuro' : 'claro';
+        root.setAttribute('data-theme', nuevo);
+        try { localStorage.setItem(KEY, nuevo); } catch (e) {}
+        aplicarMeta(nuevo);
+        etiqueta(nuevo);
+      });
+    });
   }
+
+  /* ---- Menú móvil a pantalla completa ---- */
+  function iniciarMenu() {
+    var toggle = document.querySelector('[data-nav-toggle]');
+    var nav = document.querySelector('[data-site-nav]');
+    var header = document.querySelector('.site-header');
+    if (!toggle || !nav) return;
+
+    function abierto() { return nav.classList.contains('is-open'); }
+    function abrir() {
+      nav.classList.add('is-open');
+      document.body.classList.add('menu-open');
+      if (header) header.classList.add('menu-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Cerrar menú de navegación');
+    }
+    function cerrar(devolverFoco) {
+      nav.classList.remove('is-open');
+      document.body.classList.remove('menu-open');
+      if (header) header.classList.remove('menu-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menú de navegación');
+      if (devolverFoco) toggle.focus();
+    }
+    toggle.addEventListener('click', function () { abierto() ? cerrar(false) : abrir(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && abierto()) cerrar(true);
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('a')) cerrar(false);
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 864 && abierto()) cerrar(false);
+    });
+  }
+
+  /* ---- Aparición suave (respeta "reducir movimiento") ---- */
+  function iniciarReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var items = document.querySelectorAll('main > section:not(.hero), .site-footer .footer-grid');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    items.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) return; /* ya visible: no se oculta */
+      el.classList.add('reveal-ready');
+      io.observe(el);
+    });
+  }
+
+  function iniciar() { iniciarTema(); iniciarMenu(); iniciarReveal(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
 })();
