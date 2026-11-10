@@ -3,32 +3,29 @@
 <head>
   <meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.sibforms.com; form-action 'self' https://*.sibforms.com; frame-src 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests"><meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0c0f14">
+  <meta name="theme-color" content="#121212">
   <meta name="description" content="ROAFIT: entrenamiento y asesoría nutricional básica online. Del Deseo a la Acción.">
   <title>ROAFIT | Del Deseo a la Acción</title>
-  <link rel="stylesheet" href="assets/css/site.css">
-  <script src="assets/js/site.js" defer></script>
+  <script>try{var t=localStorage.getItem('roafit-tema');if(t==='claro'||t==='oscuro')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script><link rel="stylesheet" href="assets/css/site.css?v=2">
+  <script src="assets/js/site.js?v=2" defer></script>
 </head>
 <body class="home-page">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
-<header class="site-header"><div class="header-inner">
-  <a class="brand" href="index.html" aria-label="ROAFIT, ir al inicio"><span class="brand-mark" aria-hidden="true">RF</span><span class="brand-name"><span>ROA</span><span class="brand-accent">FIT</span></span></a>
-  <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú de navegación"><span class="nav-toggle-label">Menú</span></button>
-  <nav class="site-nav" id="site-nav" data-site-nav aria-label="Navegación principal"><ul>
+<header class="site-header"><div class="header-inner"><a class="brand" href="index.html" aria-label="ROAFIT, ir al inicio"><img class="brand-logo brand-logo--oscuro" src="assets/img/logo-oscuro.png" alt="ROAFIT" width="750" height="304"><img class="brand-logo brand-logo--claro" src="assets/img/logo-claro.png" alt="" width="750" height="304" aria-hidden="true"></a><nav class="site-nav" id="site-nav" data-site-nav aria-label="Navegación principal"><ul>
     <li><a href="index.html" aria-current="page">Inicio</a></li><li><a href="blog/index.html">Blog</a></li><li><a href="herramientas.html">Herramientas</a></li><li><a href="tienda.html">Tienda</a></li><li><a href="contacto.html">Contacto</a></li>
-  </ul></nav>
-</div></header>
+  </ul></nav><div class="header-tools"><button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Cambiar tema claro u oscuro"><svg class="i-luna" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sol" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button><button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú de navegación"><svg class="i-menu" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></svg><svg class="i-cerrar" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div></div></header>
 <main id="contenido">
   <section class="hero" aria-labelledby="home-title">
+    <div class="hero-stage">
     <div class="container hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">Coaching online</p>
         <h1 id="home-title"><span class="hero-title-line">Del deseo a</span><span class="hero-title-line">la <span class="hero-title-accent">acción</span></span></h1>
         <p class="lead">Coaching personalizado de entrenamiento y asesoría nutricional básica. Sin atajos, sin humo — solo ciencia, constancia y un plan hecho a tu medida.</p>
         <div class="actions"><a class="button" href="herramientas.html"><span>Empieza tu evolución</span><svg class="button-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a></div>
-        <a class="scroll-cue" href="#metodo">Scroll <span aria-hidden="true">↓</span></a>
       </div>
-      <div class="hero-photo-space" aria-hidden="true"></div>
+    </div>
+    <div class="hero-photo" data-foto="portada"><img class="foto-oscuro" src="assets/img/hero-remo.webp" alt="Luis, coach de ROAFIT, entrenando remo en polea" width="1000" height="1333" fetchpriority="high"><img class="foto-claro" src="assets/img/mancuernas.webp" alt="Luis, coach de ROAFIT, sonriendo con dos mancuernas" width="900" height="1059"></div>
     </div>
     <div class="container hero-pillars" role="group" aria-label="Pilares ROAFIT">
       <article class="hero-pillar">
@@ -48,15 +45,15 @@
 
   <section class="section home-method" id="metodo"><div class="container"><div class="section-intro center"><p class="eyebrow">El método</p><h2>Tu transformación, paso a paso</h2><p class="lead">Tres pilares fundamentales que trabajan en conjunto para lograr resultados reales y duraderos.</p></div>
     <div class="grid grid-3 method-grid">
-      <article class="card method-card"><div class="media-placeholder method-photo" data-foto="metodo-entrenamiento" role="img" aria-label="Espacio para fotografía real de entrenamiento"><span>Fotografía de entrenamiento pendiente</span></div><div class="method-copy"><span class="method-icon" aria-hidden="true">01</span><h3>Entrenamiento</h3><p>Programación individualizada basada en evidencia científica, adaptada a tu nivel y objetivos.</p></div></article>
-      <article class="card method-card"><div class="media-placeholder method-photo" data-foto="metodo-nutricion" role="img" aria-label="Espacio para fotografía real de asesoría nutricional"><span>Fotografía de nutrición pendiente</span></div><div class="method-copy"><span class="method-icon" aria-hidden="true">02</span><h3>Asesoría nutricional básica</h3><p>Plan nutricional flexible y sostenible. Sin alimentos prohibidos, con estructura y sentido.</p></div></article>
-      <article class="card method-card"><div class="media-placeholder method-photo" data-foto="metodo-seguimiento" role="img" aria-label="Espacio para fotografía real de seguimiento"><span>Fotografía de seguimiento pendiente</span></div><div class="method-copy"><span class="method-icon" aria-hidden="true">03</span><h3>Seguimiento</h3><p>Acompañamiento continuo, ajustes semanales y comunicación directa para que nunca estés solo en el proceso.</p></div></article>
+      <article class="card method-card"><div class="foto method-photo" data-foto="metodo-entrenamiento"><img src="assets/img/zancada.webp" alt="Zancada con mancuernas en el gimnasio" width="900" height="1087" loading="lazy"></div><div class="method-copy"><span class="method-icon" aria-hidden="true">01</span><h3>Entrenamiento</h3><p>Programación individualizada basada en evidencia científica, adaptada a tu nivel y objetivos.</p></div></article>
+      <article class="card method-card"><div class="foto method-photo" data-foto="metodo-nutricion"><img src="assets/img/biceps.webp" alt="Luis mostrando el trabajo de brazo tras entrenar" width="700" height="1144" loading="lazy"></div><div class="method-copy"><span class="method-icon" aria-hidden="true">02</span><h3>Asesoría nutricional básica</h3><p>Plan nutricional flexible y sostenible. Sin alimentos prohibidos, con estructura y sentido.</p></div></article>
+      <article class="card method-card"><div class="foto method-photo" data-foto="metodo-seguimiento"><img src="assets/img/sentado.webp" alt="Luis sentado en el gimnasio, atento a la persona que entrena" width="800" height="1096" loading="lazy"></div><div class="method-copy"><span class="method-icon" aria-hidden="true">03</span><h3>Seguimiento</h3><p>Acompañamiento continuo, ajustes semanales y comunicación directa para que nunca estés solo en el proceso.</p></div></article>
     </div>
   </div></section>
 
-  <section class="section home-coach"><div class="container split coach-layout"><div class="coach-copy"><p class="eyebrow">Ciencia + disciplina + honestidad</p><h2>Tu coach</h2><p class="lead coach-provisional-copy">Soy un apasionado del entrenamiento y la asesoría nutricional básica basada en evidencia. Mi método no se basa en dietas milagro ni rutinas genéricas — trabajo contigo para crear un plan que encaje en tu vida real, tus objetivos y tu cuerpo. Sin promesas vacías, solo resultados sostenibles.</p><a class="button button-secondary" href="contacto.html">Conóceme mejor</a></div><div class="media-placeholder tall coach-photo" data-foto="coach-retrato" role="img" aria-label="Espacio reservado para un retrato real del coach, proporción 3:4"><span>Retrato del coach pendiente · 3:4</span></div></div></section>
+  <section class="section home-coach"><div class="container split coach-layout"><div class="coach-copy"><p class="eyebrow">Ciencia + disciplina + honestidad</p><h2>Tu coach</h2><p class="lead coach-provisional-copy">Soy un apasionado del entrenamiento y la asesoría nutricional básica basada en evidencia. Mi método no se basa en dietas milagro ni rutinas genéricas — trabajo contigo para crear un plan que encaje en tu vida real, tus objetivos y tu cuerpo. Sin promesas vacías, solo resultados sostenibles.</p><a class="button button-secondary" href="contacto.html">Conóceme mejor</a></div><div class="foto tall coach-photo" data-foto="coach-retrato"><img src="assets/img/retrato.webp" alt="Retrato de Luis Roa, coach de ROAFIT" width="800" height="1096" loading="lazy"></div></div></section>
 
-  <section class="section home-gallery"><div class="container"><div class="section-intro center"><p class="eyebrow">En acción</p><h2>El trabajo habla</h2></div><div class="grid gallery-grid gallery-grid-dynamic"><div class="media-placeholder wide gallery-feature" data-foto="galeria-principal" role="img" aria-label="Espacio para fotografía real destacada de entrenamiento, proporción 16:9"><span>Fotografía principal pendiente · 16:9</span></div><div class="media-placeholder wide" data-foto="galeria-entrenamiento" role="img" aria-label="Espacio para fotografía real de entrenamiento, proporción 16:9"><span>Fotografía de entrenamiento pendiente · 16:9</span></div><div class="media-placeholder wide" data-foto="galeria-actividad" role="img" aria-label="Espacio para fotografía real de actividad, proporción 16:9"><span>Fotografía de actividad pendiente · 16:9</span></div></div></div></section>
+  <section class="section home-gallery"><div class="container"><div class="section-intro center"><p class="eyebrow">En acción</p><h2>El trabajo habla</h2></div><div class="grid gallery-grid gallery-grid-dynamic"><div class="foto wide gallery-feature" data-foto="galeria-principal"><img src="assets/img/plancha.webp" alt="Ejercicio de plancha en el gimnasio" width="900" height="1328" loading="lazy"></div><div class="foto wide" data-foto="galeria-entrenamiento"><img src="assets/img/jalon.webp" alt="Jalón al pecho en máquina" width="900" height="1200" loading="lazy"></div><div class="foto wide" data-foto="galeria-actividad"><img src="assets/img/mancuernas.webp" alt="Luis sonriendo con dos mancuernas" width="900" height="1059" loading="lazy"></div></div></div></section>
 
   <section class="section home-community"><div class="container callout community-home-callout"><p class="eyebrow">Tu primer paso hacia el cambio</p><h2>Únete a la comunidad ROAFIT</h2><p class="lead">Únete a la comunidad y recibe información realmente útil, libre de SPAM, directamente en tu email.</p><a class="button" href="contacto.html">Únete ahora</a></div></section>
 </main>
