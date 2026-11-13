@@ -282,16 +282,19 @@
         let resumen = '\n💪 TRACKER DE ENTRENAMIENTO - RESUMEN VISUAL\n';
         resumen += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
         
-        const diasNombres = {
-            'day1': '🏋️ DÍA 1: TREN SUPERIOR',
-            'day2': '🦵 DÍA 2: TREN INFERIOR',
-            'day3': '💫 DÍA 3: CORE/ABDOMEN'
+        // Nombres de los días según la rutina elegida en cada semana (sin 'rutina' = torso/pierna, la original)
+        const nombresPorRutina = {
+            'torso-pierna': { day1: '🏋️ DÍA 1: TREN SUPERIOR', day2: '🦵 DÍA 2: TREN INFERIOR', day3: '💫 DÍA 3: CORE/ABDOMEN' },
+            'fullbody': { day1: '🏋️ DÍA 1: FULL BODY A', day2: '🏋️ DÍA 2: FULL BODY B', day3: '💫 DÍA 3: REPITE A o B' },
+            'express': { day1: '⏱️ DÍA 1: EXPRESS A', day2: '⏱️ DÍA 2: EXPRESS B', day3: '💫 DÍA 3: CORE/ABDOMEN' },
+            'casa': { day1: '🏠 DÍA 1: EN CASA A', day2: '🏠 DÍA 2: EN CASA B', day3: '💫 DÍA 3: CORE/ABDOMEN' }
         };
-        
+
         // Recorrer todas las semanas registradas
         Object.keys(workoutData).forEach(semanaNum => {
             const semanaData = workoutData[semanaNum];
-            
+            const diasNombres = nombresPorRutina[semanaData && semanaData.rutina] || nombresPorRutina['torso-pierna'];
+
             resumen += `📅 SEMANA ${semanaNum}\n`;
             resumen += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
             
