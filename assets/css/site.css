@@ -307,3 +307,135 @@ h3 { font-size: 1.4rem; line-height: 1.15; letter-spacing: -.03em; }
 /* Ajustes de página */
 .tools-hero .lead, .page-hero .lead { margin-inline: 0; }
 @media (min-width: 64rem) { .tool-catalog .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+
+/* =====================================================================
+   ESTILO «BLOQUE» (noviembre 2026) — alinea todas las páginas con la portada.
+   Solo cambia el aspecto: tipografía, cabecera, botones, etiquetas y tema.
+   Para volver atrás basta con borrar este bloque.
+   ===================================================================== */
+@font-face { font-family: "Archivo Black"; src: url("../fonts/ArchivoBlack-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+
+:root {
+  --accent: #F5CE1E; --accent-hover: #ffdf45;
+  --display: "Archivo Black", "Arial Black", var(--font);
+  --paper: #F4F2EC; --lab-mist: #ffffff; --hairline: #dcd9d0; --line-strong: #b9b6ad;
+  --radius-card: 16px;
+  --surface-2: color-mix(in srgb, var(--ink) 10%, var(--bg));
+}
+/* Oscuro por defecto, igual que la portada; el claro solo si la persona lo elige */
+:root:not([data-theme="claro"]) {
+  --bg: #000000; --ink: #F4F2EC; --muted: #aeaba3; --surface: #161616;
+  --line: #2b2b2b; --line-strong: #4a4a4a; --focus: #ffffff; color-scheme: dark;
+}
+:root:not([data-theme="claro"]) .theme-toggle .i-sol { display: block; }
+:root:not([data-theme="claro"]) .theme-toggle .i-luna { display: none; }
+:root[data-theme="claro"] .theme-toggle .i-sol { display: none; }
+:root[data-theme="claro"] .theme-toggle .i-luna { display: block; }
+.site-footer { --bg: #000000; border-top: 1px solid var(--line); }
+
+/* Titulares en Archivo Black. Tamaños pensados para que ninguna palabra se corte */
+h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -.015em; overflow-wrap: normal; word-break: normal; hyphens: none; }
+h1 { font-size: clamp(1.9rem, 8.4vw, 4.8rem); line-height: .98; letter-spacing: -.02em; }
+h2 { font-size: clamp(1.7rem, 5vw, 3.2rem); line-height: 1; }
+h3 { font-size: 1.25rem; line-height: 1.15; letter-spacing: -.01em; }
+.page-hero h1, .section-intro > h1 { max-width: 16ch; font-size: clamp(1.9rem, 8.4vw, 5rem); line-height: .96; letter-spacing: -.02em; }
+.article > h1 { font-size: clamp(1.8rem, 7vw, 3.6rem); line-height: 1; letter-spacing: -.02em; }
+.article > h2 { font-size: 1.35rem; letter-spacing: -.01em; }
+.card h2 { font-size: 1.35rem; line-height: 1.1; letter-spacing: -.01em; }
+.form-heading h2 { font-size: clamp(1.5rem, 4.4vw, 2.1rem); }
+.community-option h3 { font-size: 1rem; }
+.contact-aside h2, .community-copy h2 { max-width: 16ch; }
+
+/* Etiquetas y botones: sin mayúsculas espaciadas */
+.eyebrow, .card-number, .method-icon { font-size: .9375rem; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.button, .card-link, .provisional, .option-status, .field label, .media-placeholder { letter-spacing: 0; text-transform: none; }
+.button { font-size: .9375rem; }
+.card-link { font-size: .875rem; }
+.provisional, .option-status { font-size: .8125rem; }
+.field label { font-size: .9375rem; }
+.button:active { transform: scale(.97); }
+
+/* Cabecera: menú en texto normal, página activa subrayada en amarillo */
+.site-header { border-bottom: 0; }
+.site-nav a { font-family: var(--display); font-weight: 400; letter-spacing: -.01em; }
+@media (min-width: 56rem) {
+  .site-nav ul { gap: clamp(.75rem, 2vw, 1.75rem); }
+  .site-nav a { min-height: 2.1rem; padding: 0 .1rem; border-radius: 0; font-family: var(--font); font-size: .875rem; font-weight: 600; letter-spacing: 0; text-transform: none; }
+  .site-nav a:hover { background: none; box-shadow: inset 0 -2px 0 var(--accent); }
+  .site-nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--accent); }
+}
+
+/* Botón flotante de contacto (lo añade site.js) */
+.fab { position: fixed; z-index: 30; right: clamp(.9rem, 2.4vw, 1.9rem); bottom: clamp(.9rem, 2.4vw, 1.9rem); }
+.fab a { display: flex; align-items: center; gap: .6rem; min-height: 3.5rem; padding: 0 1.4rem 0 1.1rem; border-radius: 999px; background: var(--accent); color: #000; font-size: .9375rem; font-weight: 700; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: transform .25s cubic-bezier(.16,1,.3,1); }
+.fab svg { width: 1.6rem; height: 1.6rem; fill: currentColor; }
+.fab a:active { transform: scale(.96) !important; }
+@media (max-width: 47.99rem) { .fab a { width: 3.5rem; padding: 0; justify-content: center; } .fab span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } }
+@media print { .fab { display: none; } }
+
+
+/* =====================================================================
+   BLOQUE · parte 2 — cabecera translúcida, tema coherente, entradas y hover
+   ===================================================================== */
+
+/* --- Cabecera fija y translúcida, como en la portada --- */
+.site-header { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 72%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+/* con el menú móvil abierto se quita el desenfoque (si no, el menú no ocupa toda la pantalla) */
+.site-header.menu-open { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.site-nav { background: var(--bg); }
+.site-nav a { color: var(--ink); }
+@media (min-width: 56rem) { .site-nav { background: transparent; } }
+
+/* --- Tema claro: las bandas (cabecera, cabecera de página, pie) también cambian --- */
+:root[data-theme="claro"] :is(.site-header, .page-hero, .home-coach, .home-community, .community-cta, .site-footer, .tool-band) {
+  --bg: #F4F2EC; --ink: #000000; --muted: #5c5c5c; --surface: #ffffff;
+  --line: #dcd9d0; --line-strong: #b9b6ad; --focus: #000000;
+}
+:root[data-theme="claro"] .brand-logo { content: url("../img/logo-claro.png"); }
+.footer-links a, .footer-grid .muted a { color: var(--ink); }
+:root[data-theme="claro"] .option-mark { background: var(--ink); color: var(--bg); }
+:root[data-theme="claro"] .page-hero .button-secondary { background: var(--ink); color: var(--bg); }
+
+/* --- Entrada al abrir la página: el título sube desde una máscara --- */
+@keyframes bq-rise { from { clip-path: inset(0 0 100% 0); transform: translateY(.4em); } to { clip-path: inset(-10% -5% -15% -5%); transform: none; } }
+@keyframes bq-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes bq-fade { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-header { animation: bq-fade .6s ease-out .1s backwards; }
+  .page-hero h1, .section-intro > h1, .article > h1, .tool-page .header h1 { animation: bq-rise .95s cubic-bezier(.16,1,.3,1) .1s backwards; }
+  .page-hero .eyebrow, .page-hero .provisional, .page-hero .lead, .page-hero .actions,
+  .section-intro > h1 ~ *, .tool-page .header p { animation: bq-up .7s cubic-bezier(.16,1,.3,1) .45s backwards; }
+
+  /* --- Entrada de cada sección al llegar a ella (sustituye al fundido único anterior) --- */
+  main .reveal-ready { opacity: 1; transform: none; transition: none; }
+  main .reveal-ready:not(.is-visible) :is(h2, .eyebrow, .lead, .card, .community-option, .form-panel, .contact-email, .contact-note, .notice) { opacity: 0; }
+  main .reveal-ready.is-visible h2 { animation: bq-rise .9s cubic-bezier(.16,1,.3,1) backwards; }
+  main .reveal-ready.is-visible .card h2 { animation: none; }
+  main .reveal-ready.is-visible :is(.eyebrow, .lead, .contact-email, .contact-note, .notice) { animation: bq-up .7s cubic-bezier(.16,1,.3,1) .15s backwards; }
+  main .reveal-ready.is-visible :is(.card, .community-option, .form-panel) { animation: bq-up .75s cubic-bezier(.16,1,.3,1) .2s backwards; }
+  main .reveal-ready.is-visible :is(.card, .community-option):nth-child(2) { animation-delay: .29s; }
+  main .reveal-ready.is-visible :is(.card, .community-option):nth-child(3) { animation-delay: .38s; }
+  main .reveal-ready.is-visible :is(.card, .community-option):nth-child(4) { animation-delay: .47s; }
+  main .reveal-ready.is-visible .card :is(.eyebrow, .lead) { animation: none; }
+  main .reveal-ready:not(.is-visible) .card :is(.eyebrow, .lead, h2) { opacity: 1; }
+}
+
+/* --- Al pasar el cursor: mismo lenguaje que los botones de la portada --- */
+.card, .community-option, .card-link, .provisional, .option-status, .button-secondary, .fab a {
+  transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .25s, background-color .2s, color .2s;
+}
+.tools-card { position: relative; }
+.tools-card .card-link::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius-card); }   /* toda la tarjeta es el enlace */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover, .community-option:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1.5px var(--line-strong); }
+  .tools-card:hover { box-shadow: inset 0 0 0 2px var(--accent); }
+  .tools-card:hover .card-link { background: var(--accent); color: #000; box-shadow: none; }
+  .card:hover .provisional, .community-option:hover .option-status { background: var(--ink); color: var(--bg); box-shadow: none; }
+  .button-secondary:hover, .page-hero .button-secondary:hover { background: var(--ink); color: var(--bg); box-shadow: none; }
+  .fab a:hover { background: var(--accent-hover); }
+  .contact-email:hover { text-decoration-color: var(--accent); }
+}
+.card:active { transform: scale(.99); }
+@media (prefers-reduced-motion: reduce) { .card:hover, .community-option:hover { transform: none; } }
